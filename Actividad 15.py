@@ -5,48 +5,55 @@ def menu():
 def ingreso():
     while True:
         try:
+            print("= = = = Ingreso de participantes, presione ( 0 ) para regresar al menú principal = = = =")
             n = int(input("\n¿Cuántos participantes desea ingresar?: "))
-            for i in range(n):
-                print(f"\nPARTICIPANTE #{i+1}")
-                while True:
-                    try:
-                        dorsal = int(input("Ingrese el dorsal del participante: "))
-                        if dorsal > 0:
-                            if dorsal in participantes:
-                                print("El dorsal ya está en uso, pruebe otro")
-                            else:
+            if n == 0:
+                print("Regresará al menú principal. . .")
+                break
+            elif n < 0 :
+                print("Número inválido para agregar participantes, volviendo al menú principal. . .")
+            elif n > 0:
+                for i in range(n):
+                    print(f"\nPARTICIPANTE #{i + 1}")
+                    while True:
+                        try:
+                            dorsal = int(input("Ingrese el dorsal del participante: "))
+                            if dorsal > 0:
+                                if dorsal in participantes:
+                                    print("El dorsal ya está en uso, pruebe otro")
+                                else:
+                                    break
+                        except Exception as ex:
+                            print(f"Ha ocurrido un error: {ex}")
+                    while True:
+                        nombre = input("Ingrese el nombre del participante: ")
+                        if nombre or nombre.isspace():
+                            break
+                        else:
+                            print("Nombre inválido, reintente")
+                    while True:
+                        try:
+                            edad = int(input("Ingrese la edad del participante (15 - 35): "))
+                            if edad >= 15:
                                 break
-                    except Exception as ex:
-                        print(f"Ha ocurrido un error: {ex}")
-                while True:
-                    nombre = input("Ingrese el nombre del participante: ")
-                    if nombre or nombre.isspace():
-                        break
-                    else:
-                        print("Nombre inválido, reintente")
-                while True:
-                    try:
-                        edad = int(input("Ingrese la edad del participante (15 - 35): "))
-                        if edad >= 15:
-                            break
+                            else:
+                                print("La edad no es válida, reintente")
+                        except Exception as ex:
+                            print(f"Ha ocurrido un error: {ex}")
+                    while True:
+                        categoria = input("Ingrese la categoría del participante (Juvenil, Adulto, Máster): ").upper()
+                        if categoria or categoria.isspace():
+                            if ((categoria == "JUVENIL") or (categoria == "ADULTO") or (categoria == "MÁSTER")):
+                                break
+                            else:
+                                print("La categoría ingresada no es válida, reintente")
                         else:
-                            print("La edad no es válida, reintente")
-                    except Exception as ex:
-                        print(f"Ha ocurrido un error: {ex}")
-                while True:
-                    categoria = input("Ingrese la categoría del participante (Juvenil, Adulto, Máster): ").upper()
-                    if categoria or categoria.isspace():
-                        if ((categoria == "JUVENIL") or (categoria == "ADULTO") or (categoria == "MÁSTER")):
-                            break
-                        else:
-                            print("La categoría ingresada no es válida, reintente")
-                    else:
-                        print("Nombre inválido, reintente")
-                participantes[dorsal] = {
-                    "nombre": nombre,
-                    "edad": edad,
-                    "categoria": categoria
-                }
+                            print("Nombre inválido, reintente")
+                    participantes[dorsal] = {
+                        "nombre": nombre,
+                        "edad": edad,
+                        "categoria": categoria
+                    }
             break
         except Exception as ex:
             print(f"Ha ocurrido un error: {ex}")
